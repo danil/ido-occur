@@ -4,6 +4,12 @@ Yet another [occur][] with [ido][]
 
 [ido]: http://emacswiki.org/emacs/InteractivelyDoThings
 
+## Warning!
+
+Should use `ido-occur` with [ido-vertical-mode][]!
+
+[ido-vertical-mode]: https://github.com/creichert/ido-vertical-mode.el
+
 ## Description
 
 Search lines in current buffer like `occur` but interactively with `ido`
