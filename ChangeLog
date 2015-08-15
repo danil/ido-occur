@@ -1,0 +1,4 @@
+2015-08-15  Danil Kutkevich  <danil@kutkevich.org>
+
+        * ido-occur.el (ido-occur): straight implementation of `occur`-like
+        function with `ido`
