@@ -1,4 +1,4 @@
-;;; ido-occur.el --- Yet Another `occur' with `ido'.
+;;; ido-occur.el --- Yet another `occur' with `ido'.
 
 ;; Copyright (C) 2015 Danil <danil@kutkevich.org>.
 ;; Author: Danil <danil@kutkevich.org>
@@ -9,7 +9,7 @@
 ;; URL: http://danil.kutkevich.org/p/el/ido-occur
 
 ;;; Commentary:
-;; Yet Another `occur' with `ido'.
+;; Yet another `occur' with `ido'.
 ;; See the README.md for more details.
 
 ;;; License:
@@ -36,7 +36,7 @@
 (require 'ido)
 
 (defgroup ido-occur nil
-  "Yet Another `occur' with `ido'."
+  "Yet another `occur' with `ido'."
   :group 'help
   :group 'convenience)
 
@@ -62,7 +62,7 @@
 
 ;;;###autoload
 (defun ido-occur ()
-  "Yet Another `occur' with `ido'."
+  "Yet another `occur' with `ido'."
 
   (interactive)
   (let ((line (ido-occur--strip-text-properties

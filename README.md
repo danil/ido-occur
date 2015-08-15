@@ -1,6 +1,6 @@
 # Ido occur
 
-Yet Another [occur][] with [ido][]
+Yet another [occur][] with [ido][]
 
 [ido]: http://emacswiki.org/emacs/InteractivelyDoThings
 
