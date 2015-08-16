@@ -2,11 +2,11 @@
 
 ;; Copyright (C) 2015 Danil <danil@kutkevich.org>.
 ;; Author: Danil <danil@kutkevich.org>
-;; Package-Version: 0.0.1
-;; Version: 0.0.1
-;; Package-Requires: ()
+;; Package-Version: 0.0.2
+;; Version: 0.0.2
+;; Package-Requires: ((ido-vertical-mode "v0.1.6"))
 ;; Keywords: inner buffer search
-;; URL: http://danil.kutkevich.org/p/el/ido-occur
+;; URL: https://github.com/danil/ido-occur
 
 ;;; Commentary:
 ;; Yet another `occur' with `ido'.
@@ -33,7 +33,9 @@
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Code:
+
 (require 'ido)
+(require 'ido-vertical-mode)
 
 (defgroup ido-occur nil
   "Yet another `occur' with `ido'."
@@ -65,15 +67,12 @@
   "Yet another `occur' with `ido'."
 
   (interactive)
+  (ido-vertical-mode t)
   (let ((line (ido-occur--strip-text-properties
                (ido-completing-read ido-occur--prompt
                                     (ido-occur--lines-as-list)))))
     (goto-char (point-min))
     (search-forward line)
     (beginning-of-line)))
-
-;; Local Variables:
-;; indent-tabs-mode: nil
-;; End:
 
 ;;; ido-occur.el ends here
