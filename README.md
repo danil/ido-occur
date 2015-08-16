@@ -18,7 +18,9 @@ Search lines in current buffer like `occur` interactively with `ido`
 ## Installation
 
 If you are not set up `ido-vertical-mode`, you can configure it
-according to [readme](https://github.com/creichert/ido-vertical-mode.el#turn-it-on)
+according to [readme][ido-vertical-mode-readme].
+
+[ido-vertical-mode-readme]: https://github.com/creichert/ido-vertical-mode.el#turn-it-on
 
 ## Alternatives
 
