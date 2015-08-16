@@ -4,6 +4,8 @@ Yet another [occur][] with [ido][]
 
 [ido]: http://emacswiki.org/emacs/InteractivelyDoThings
 
+![ido-occur](https://raw.githubusercontent.com/danil/ido-occur/master/ido-occur.png)
+
 ## Description
 
 Search lines in current buffer like `occur` interactively with `ido`
