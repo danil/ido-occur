@@ -2,9 +2,8 @@
 
 ;; Copyright (C) 2015 Danil <danil@kutkevich.org>.
 ;; Author: Danil <danil@kutkevich.org>
-;; Package-Version: 0.0.2
 ;; Version: 0.0.2
-;; Package-Requires: ((ido-vertical-mode "v0.1.6"))
+;; Package-Requires: ((ido-vertical-mode "1.0.0"))
 ;; Keywords: inner buffer search
 ;; URL: https://github.com/danil/ido-occur
 
