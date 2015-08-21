@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2015 Danil <danil@kutkevich.org>.
 ;; Author: Danil <danil@kutkevich.org>
-;; Version: 0.0.5
+;; Version: 0.0.6
 ;; Package-Requires: ((ido-vertical-mode "1.0.0"))
 ;; Keywords: inner buffer search
 ;; URL: https://github.com/danil/ido-occur
@@ -46,27 +46,26 @@
   :type 'string
   :group 'ido-occur)
 
-(defun ido-occur--lines-as-string ()
-  "Get as string all lines with properties of current buffer.
+(defun ido-occur--lines-as-string (buffer point)
+  "Get `BUFFER' as string with properties beginning from `POINT'.
 First get lines from current line and below.
 Then get lines from current line and above.
 This will ensure that the first candidate will be the current line."
 
-  (let ((initial-point (point)))
-    (beginning-of-line)
+  (beginning-of-line)
 
-    (let ((candidates (with-current-buffer (current-buffer)
-                        (save-restriction
-                          (widen)
-                          (concat (buffer-substring (point) (point-max))
-                                  (buffer-substring (point-min) (point)))))))
-      (goto-char initial-point)
+  (let ((candidates (with-current-buffer buffer
+                      (save-restriction
+                        (widen)
+                        (concat (buffer-substring (point) (point-max))
+                                (buffer-substring (point-min) (point)))))))
+    (goto-char point)
 
-      candidates)))
+    candidates))
 
-(defun ido-occur--lines-as-list ()
-  "List all lines of current buffer."
-  (split-string (ido-occur--lines-as-string) "\n" t))
+(defun ido-occur--lines-as-list (buffer point)
+  "List all lines of `BUFFER' beginning from `POINT'."
+  (split-string (ido-occur--lines-as-string buffer point) "\n" t))
 
 (defun ido-occur--strip-text-properties (txt)
   "Strip text properties from `TXT'."
@@ -78,12 +77,15 @@ This will ensure that the first candidate will be the current line."
 
   (interactive)
   (ido-vertical-mode t)
-  (let ((line (ido-occur--strip-text-properties
+  (let ((column (current-column))
+        (line (ido-occur--strip-text-properties
                (ido-completing-read ido-occur--prompt
-                                    (ido-occur--lines-as-list)))))
+                                    (ido-occur--lines-as-list (current-buffer)
+                                                              (point))))))
     (goto-char (point-min))
     (search-forward line)
-    (beginning-of-line)))
+    (beginning-of-line)
+    (forward-char column)))
 
 (provide 'ido-occur)
 
