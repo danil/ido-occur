@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2015 Danil <danil@kutkevich.org>.
 ;; Author: Danil <danil@kutkevich.org>
-;; Version: 0.0.4
+;; Version: 0.0.5
 ;; Package-Requires: ((ido-vertical-mode "1.0.0"))
 ;; Keywords: inner buffer search
 ;; URL: https://github.com/danil/ido-occur
@@ -47,11 +47,22 @@
   :group 'ido-occur)
 
 (defun ido-occur--lines-as-string ()
-  "Get all lines with properties of current buffer."
-  (with-current-buffer (current-buffer)
-    (save-restriction
-      (widen)
-      (buffer-substring (point-min) (point-max)))))
+  "Get as string all lines with properties of current buffer.
+First get lines from current line and below.
+Then get lines from current line and above.
+This will ensure that the first candidate will be the current line."
+
+  (let ((initial-point (point)))
+    (beginning-of-line)
+
+    (let ((candidates (with-current-buffer (current-buffer)
+                        (save-restriction
+                          (widen)
+                          (concat (buffer-substring (point) (point-max))
+                                  (buffer-substring (point-min) (point)))))))
+      (goto-char initial-point)
+
+      candidates)))
 
 (defun ido-occur--lines-as-list ()
   "List all lines of current buffer."
