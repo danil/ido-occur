@@ -2,8 +2,8 @@
 
 ;; Copyright (C) 2015 Danil <danil@kutkevich.org>.
 ;; Author: Danil <danil@kutkevich.org>
-;; Version: 0.0.6
-;; Package-Requires: ((ido-vertical-mode "1.0.0"))
+;; Version: 0.0.7
+;; Package-Requires: ((ido-vertical-mode "1.0.0") (dash "2.11.0"))
 ;; Keywords: inner buffer search
 ;; URL: https://github.com/danil/ido-occur
 
@@ -35,6 +35,7 @@
 
 (require 'ido)
 (require 'ido-vertical-mode)
+(require 'dash)
 
 (defgroup ido-occur nil
   "Yet another `occur' with `ido'."
@@ -46,26 +47,25 @@
   :type 'string
   :group 'ido-occur)
 
-(defun ido-occur--lines-as-string (buffer point)
-  "Get `BUFFER' as string with properties beginning from `POINT'.
-First get lines from current line and below.
-Then get lines from current line and above.
-This will ensure that the first candidate will be the current line."
+(defun ido-occur--lines-as-string (buffer)
+  "Get all lines with properties of the `BUFFER'."
+  (with-current-buffer buffer
+    (save-restriction
+      (widen)
+      (buffer-substring (point-min) (point-max)))))
 
-  (beginning-of-line)
+(defun ido-occur--lines-as-list (buffer current-point)
+  "List all lines of `BUFFER' with respects to `CURRENT-POINT'.
+List lines from `CURRENT-POINT' to end of `BUFFER'
+and from end of `BUFFER' to beginning of `BUFFER'."
 
-  (let ((candidates (with-current-buffer buffer
-                      (save-restriction
-                        (widen)
-                        (concat (buffer-substring (point) (point-max))
-                                (buffer-substring (point-min) (point)))))))
-    (goto-char point)
+  (let ((line-number (count-lines 1 current-point))
 
-    candidates))
+        (lines (split-string (ido-occur--lines-as-string buffer) "\n")))
 
-(defun ido-occur--lines-as-list (buffer point)
-  "List all lines of `BUFFER' beginning from `POINT'."
-  (split-string (ido-occur--lines-as-string buffer point) "\n" t))
+    (-filter (lambda (x) (not (equal x "")))
+             (-concat (-drop (- line-number 1) lines)
+                      (-take line-number lines)))))
 
 (defun ido-occur--strip-text-properties (txt)
   "Strip text properties from `TXT'."
