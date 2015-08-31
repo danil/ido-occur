@@ -54,12 +54,12 @@
       (widen)
       (buffer-substring (point-min) (point-max)))))
 
-(defun ido-occur--lines-as-list (buffer current-point)
-  "List all lines of `BUFFER' with respects to `CURRENT-POINT'.
-List lines from `CURRENT-POINT' to end of `BUFFER'
+(defun ido-occur--lines-as-list (buffer line-number)
+  "List all lines of `BUFFER' with respects to current `LINE-NUMBER'.
+List lines from `LINE-NUMBER' to end of `BUFFER'
 and from end of `BUFFER' to beginning of `BUFFER'."
 
-  (let ((line-number (count-lines 1 current-point))
+  (let ((line-number (line-number-at-pos))
 
         (lines (split-string (ido-occur--lines-as-string buffer) "\n")))
 
@@ -81,7 +81,7 @@ and from end of `BUFFER' to beginning of `BUFFER'."
         (line (ido-occur--strip-text-properties
                (ido-completing-read ido-occur--prompt
                                     (ido-occur--lines-as-list (current-buffer)
-                                                              (point))))))
+                                                              (line-number-at-pos))))))
     (goto-char (point-min))
     (search-forward line)
     (beginning-of-line)
