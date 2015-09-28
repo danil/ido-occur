@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2015 Danil <danil@kutkevich.org>.
 ;; Author: Danil <danil@kutkevich.org>
-;; Version: 0.0.7
+;; Version: 0.1.0
 ;; Package-Requires: ((ido-vertical-mode "1.0.0") (dash "2.11.0"))
 ;; Keywords: inner buffer search
 ;; URL: https://github.com/danil/ido-occur
@@ -54,6 +54,25 @@
       (widen)
       (buffer-substring (point-min) (point-max)))))
 
+(defun ido-occur--decorate-lines-list (lines)
+  "Add line number to each string in `LINES'."
+
+  (let* ((lines-count (number-to-string (length lines))))
+
+    (-map-indexed (lambda (index str)
+                    "Transform `INDEX' to number and add to `STR'."
+
+                    (let* ((line-number (+ index 1))
+
+                           (number-length (number-to-string (length lines-count)))
+
+                           (formated-line-number (format (concat "%" number-length "s")
+                                                         line-number)))
+
+                      (format "%s %s" formated-line-number str)))
+
+                  lines)))
+
 (defun ido-occur--lines-as-list (buffer line-number)
   "List all lines of `BUFFER' with respects to current `LINE-NUMBER'.
 List lines from `LINE-NUMBER' to end of `BUFFER'
@@ -61,11 +80,11 @@ and from end of `BUFFER' to beginning of `BUFFER'."
 
   (let ((line-number (line-number-at-pos))
 
-        (lines (split-string (ido-occur--lines-as-string buffer) "\n")))
+        (lines (ido-occur--decorate-lines-list
+                (split-string (ido-occur--lines-as-string buffer) "\n"))))
 
-    (-filter (lambda (x) (not (equal x "")))
-             (-concat (-drop (- line-number 1) lines)
-                      (-take line-number lines)))))
+    (-concat (-drop (- line-number 1) lines)
+             (-take line-number lines))))
 
 (defun ido-occur--strip-text-properties (txt)
   "Strip text properties from `TXT'."
@@ -77,15 +96,24 @@ and from end of `BUFFER' to beginning of `BUFFER'."
 
   (interactive)
   (ido-vertical-mode t)
-  (let ((column (current-column))
-        (line (ido-occur--strip-text-properties
-               (ido-completing-read ido-occur--prompt
-                                    (ido-occur--lines-as-list (current-buffer)
-                                                              (line-number-at-pos))))))
-    (goto-char (point-min))
-    (search-forward line)
+
+  (let* ((initial-column (current-column))
+
+         (line (ido-occur--strip-text-properties
+                (ido-completing-read ido-occur--prompt
+                                     (ido-occur--lines-as-list (current-buffer)
+                                                               (line-number-at-pos)))))
+         (line-length (length line))
+
+         (new-column (if (<= line-length initial-column)
+                         line-length
+                       initial-column))
+
+         (line-number (string-to-number (car (split-string line)))))
+
+    (goto-line line-number)
     (beginning-of-line)
-    (forward-char column)))
+    (move-to-column new-column)))
 
 (provide 'ido-occur)
 
