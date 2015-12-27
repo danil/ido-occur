@@ -2,8 +2,8 @@
 
 ;; Copyright (C) 2015 Danil <danil@kutkevich.org>.
 ;; Author: Danil <danil@kutkevich.org>
-;; Version: 0.1.0
-;; Package-Requires: ((ido-vertical-mode "1.0.0") (dash "2.11.0"))
+;; Version: 0.1.1
+;; Package-Requires: ((dash "2.11.0"))
 ;; Keywords: inner buffer search
 ;; URL: https://github.com/danil/ido-occur
 
@@ -34,7 +34,6 @@
 ;;; Code:
 
 (require 'ido)
-(require 'ido-vertical-mode)
 (require 'dash)
 
 (defgroup ido-occur nil
@@ -90,12 +89,9 @@ and from end of `BUFFER' to beginning of `BUFFER'."
   "Strip text properties from `TXT'."
   (set-text-properties 0 (length txt) nil txt) txt)
 
-;;;###autoload
-(defun ido-occur ()
-  "Yet another `occur' with `ido'."
-
-  (interactive)
-  (ido-vertical-mode t)
+(defun ido-occur--run ()
+  "Actually `ido-occur' function)
+This fuction makes the most of the work."
 
   (let* ((initial-column (current-column))
 
@@ -114,6 +110,27 @@ and from end of `BUFFER' to beginning of `BUFFER'."
     (goto-line line-number)
     (beginning-of-line)
     (move-to-column new-column)))
+
+;;;###autoload
+(defun ido-occur ()
+  "Yet another `occur' with `ido'."
+
+  (interactive)
+
+  (if (fboundp 'ido-vertical-mode)
+      (let ((old-ido-vertical-state ido-vertical-mode))
+        (ido-vertical-mode t)
+        (ido-occur--run)
+        (ido-vertical-mode old-ido-vertical-state))
+
+    (let ((old-ido-config ido-decorations)
+          (new-ido-config '("\n-> " "" "\n   " "\n   ..." "[" "]"
+                            " [No match]" " [Matched]" " [Not readable]"
+                            " [Too big]" " [Confirm]")))
+
+      (setq ido-decorations new-ido-config)
+      (ido-occur--run)
+      (setq ido-decorations old-ido-config))))
 
 (provide 'ido-occur)
 

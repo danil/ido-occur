@@ -1,3 +1,5 @@
+[![MELPA](https://melpa.org/packages/ido-occur-badge.svg)](https://melpa.org/#/ido-occur)
+
 # Ido occur
 
 Yet another [occur][] with [ido][]
@@ -12,17 +14,16 @@ Search lines in current buffer like `occur` interactively with `ido`
 
 ## Dependencies
 
-* [ido][]
-* [ido-vertical-mode][]
+* [dash][]
+* [ido][] (built-in)
 
 [ido-vertical-mode]: https://github.com/creichert/ido-vertical-mode.el
 
 ## Installation
 
-If you are not set up `ido-vertical-mode`, you can configure it
-according to [readme][ido-vertical-mode-readme].
+Via [melpa][]: `M-x package-install ido-occur`.
 
-[ido-vertical-mode-readme]: https://github.com/creichert/ido-vertical-mode.el#turn-it-on
+[melpa]: https://melpa.org/#/ido-occur
 
 ## Alternatives
 

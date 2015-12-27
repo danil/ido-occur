@@ -1,3 +1,11 @@
+2015-12-27  Danil Kutkevich  <danil@kutkevich.org>
+
+        * ido-occur.el (ido-occur): `ido-occur` function now respects
+        `ido`-related user config.
+
+        * ido-occur.el (ido-occur--run): Move most of the "code" to
+        `ido-occur--run` function.
+
 2015-09-29  Danil Kutkevich  <danil@kutkevich.org>
 
         * ido-occur.el (ido-occur): Fix "goto line" functionality.
