@@ -39,3 +39,4 @@ Via [melpa][]: `M-x package-install ido-occur`.
 [swoop]: https://github.com/ShingoFukuyama/emacs-swoop
 [helm-swoop]: https://github.com/ShingoFukuyama/helm-swoop
 [swiper]: https://github.com/abo-abo/swiper
+[dash]: https://github.com/abo-abo/swiper
