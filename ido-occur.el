@@ -46,6 +46,14 @@
   :type 'string
   :group 'ido-occur)
 
+(defcustom ido-occur-decorations
+  '("\n-> " "" "\n   " "\n   ..." "[" "]"
+    " [No match]" " [Matched]" " [Not readable]"
+    " [Too big]" " [Confirm]")
+  "Decorations for when ther is no vertical mode."
+  :type 'list
+  :group 'ido-occur)
+
 (defun ido-occur--lines-as-string (buffer)
   "Get all lines with properties of the `BUFFER'."
   (with-current-buffer buffer
@@ -117,20 +125,18 @@ This fuction makes the most of the work."
 
   (interactive)
 
-  (if (fboundp 'ido-vertical-mode)
-      (let ((old-ido-vertical-state ido-vertical-mode))
-        (ido-vertical-mode t)
-        (ido-occur--run)
-        (ido-vertical-mode old-ido-vertical-state))
+  (cond ((bound-and-true-p ido-vertical-mode)
+	 (ido-occur--run))
 
-    (let ((old-ido-config ido-decorations)
-          (new-ido-config '("\n-> " "" "\n   " "\n   ..." "[" "]"
-                            " [No match]" " [Matched]" " [Not readable]"
-                            " [Too big]" " [Confirm]")))
+	((bound-and-true-p ido-grid-mode)
+	 (let ((ido-grid-mode-max-columns 1)
+	       (ido-grid-mode-max-rows 8)
+	       (ido-grid-mode-prefix-scrolls t))
+	   (ido-occur--run)))
 
-      (setq ido-decorations new-ido-config)
-      (ido-occur--run)
-      (setq ido-decorations old-ido-config))))
+	(t
+	 (let ((ido-decorations ido-occur-decorations))
+	   (ido-occur--run)))))
 
 (provide 'ido-occur)
 
