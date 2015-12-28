@@ -125,28 +125,18 @@ This fuction makes the most of the work."
 
   (interactive)
 
-  (cond ((fboundp 'ido-vertical-mode)
-	 (let ((old-ido-vertical-state ido-vertical-mode))
-	   (ido-vertical-mode t)
-	   (ido-occur--run)
-	   (ido-vertical-mode old-ido-vertical-state)))
+  (cond ((bound-and-true-p ido-vertical-mode)
+	 (ido-occur--run))
 
-	((fboundp 'ido-grid-mode)
+	((bound-and-true-p ido-grid-mode)
 	 (let ((ido-grid-mode-max-columns 1)
 	       (ido-grid-mode-max-rows 8)
-	       (ido-grid-mode-prefix-scrolls t)
-	       (ido-grid-mode-scroll-down #'ido-grid-mode-next-row)
-	       (ido-grid-mode-scroll-up #'ido-grid-mode-previous-row)
-	       (ido-grid-mode-order nil)
-	       (ido-grid-mode-start-collapsed t))
+	       (ido-grid-mode-prefix-scrolls t))
 	   (ido-occur--run)))
-	(t
-	 (let ((old-ido-config ido-decorations)
-	       (new-ido-config ido-occur-decorations))
 
-	   (setq ido-decorations new-ido-config)
-	   (ido-occur--run)
-	   (setq ido-decorations old-ido-config)))))
+	(t
+	 (let ((ido-decorations ido-occur-decorations))
+	   (ido-occur--run)))))
 
 (provide 'ido-occur)
 
