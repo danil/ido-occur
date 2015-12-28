@@ -17,7 +17,10 @@ Search lines in current buffer like `occur` interactively with `ido`
 * [dash][]
 * [ido][] (built-in)
 
+Optionnaly:
+
 [ido-vertical-mode]: https://github.com/creichert/ido-vertical-mode.el
+[ido-grid-mode]: https://github.com/larkery/ido-grid-mode.el
 
 ## Installation
 
@@ -30,6 +33,7 @@ Via [melpa][]: `M-x package-install ido-occur`.
 * [occur][]
 * [swoop][]
 * [helm-swoop][]
+* [swiper][]
 
 [occur]: http://www.gnu.org/software/emacs/manual/html_node/emacs/Other-Repeating-Search.html
 [swoop]: https://github.com/ShingoFukuyama/emacs-swoop
