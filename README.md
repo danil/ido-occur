@@ -38,3 +38,4 @@ Via [melpa][]: `M-x package-install ido-occur`.
 [occur]: http://www.gnu.org/software/emacs/manual/html_node/emacs/Other-Repeating-Search.html
 [swoop]: https://github.com/ShingoFukuyama/emacs-swoop
 [helm-swoop]: https://github.com/ShingoFukuyama/helm-swoop
+[swiper]: https://github.com/abo-abo/swiper
