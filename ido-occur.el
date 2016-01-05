@@ -1,8 +1,8 @@
 ;;; ido-occur.el --- Yet another `occur' with `ido'.
 
 ;; Copyright (C) 2016 Danil <danil@kutkevich.org>.
-;; Author: Danil <danil@kutkevich.org>
-;; Version: 0.1.1
+;; Author: Danil <danil@kutkevich.org>, Josuah Demangeon <sshbio>
+;; Version: 0.1.2
 ;; Package-Requires: ((dash "2.11.0"))
 ;; Keywords: inner buffer search
 ;; URL: https://github.com/danil/ido-occur
