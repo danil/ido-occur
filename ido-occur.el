@@ -125,6 +125,9 @@ This fuction makes the most of the work."
 
   (interactive)
 
+  ;; Because in original "Ido" matcher preserves candidates sort order.
+  (when (fboundp 'ido-clever-match-disable) (ido-clever-match-disable))
+
   (cond ((bound-and-true-p ido-vertical-mode)
          (ido-occur--run))
 
@@ -136,7 +139,9 @@ This fuction makes the most of the work."
 
         (t
          (let ((ido-decorations ido-occur--decorations))
-           (ido-occur--run)))))
+           (ido-occur--run))))
+
+  (when (fboundp 'ido-clever-match-enable) (ido-clever-match-enable)))
 
 (provide 'ido-occur)
 
