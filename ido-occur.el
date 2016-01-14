@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2016 Danil <danil@kutkevich.org>.
 ;; Author: Danil <danil@kutkevich.org>, Josuah Demangeon <sshbio>
-;; Version: 0.1.2
+;; Version: 0.1.3
 ;; Package-Requires: ((dash "2.11.0"))
 ;; Keywords: inner buffer search
 ;; URL: https://github.com/danil/ido-occur
