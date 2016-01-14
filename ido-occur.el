@@ -101,6 +101,8 @@ and from end of `BUFFER' to beginning of `BUFFER'."
   "Actually `ido-occur' function)
 This fuction makes the most of the work."
 
+  (interactive)
+
   (let* ((initial-column (current-column))
 
          (line (ido-occur--strip-text-properties
@@ -115,7 +117,7 @@ This fuction makes the most of the work."
 
          (line-number (string-to-number (car (split-string line)))))
 
-    (goto-line line-number)
+    (goto-line line-number) ;ido-occur.el:119:16:Warning: `goto-line' is for interactive use only; use `forward-line' instead.
     (beginning-of-line)
     (move-to-column new-column)))
 
