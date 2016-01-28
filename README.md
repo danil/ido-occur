@@ -23,9 +23,9 @@ Via [melpa][]: `M-x package-install ido-occur`.
 
 [melpa]: https://melpa.org/#/ido-occur
 
-### Optionally
+### Settings
 
-You can configure [ido-vertical-mode][] or [ido-grid-mode][]
+Optionally you can configure [ido-vertical-mode][] or [ido-grid-mode][]
 
 [ido-vertical-mode]: https://github.com/creichert/ido-vertical-mode.el
 [ido-grid-mode]: https://github.com/larkery/ido-grid-mode.el
