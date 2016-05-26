@@ -97,9 +97,10 @@ and from end of `BUFFER' to beginning of `BUFFER'."
   "Strip text properties from `TXT'."
   (set-text-properties 0 (length txt) nil txt) txt)
 
-(defun ido-occur--run ()
+(defun ido-occur--run (&optional query)
   "Actually `ido-occur' function)
-This fuction makes the most of the work."
+This fuction makes the most of the work.
+When non-nil, QUERY is the initial search pattern."
 
   (interactive)
 
@@ -108,7 +109,10 @@ This fuction makes the most of the work."
          (line (ido-occur--strip-text-properties
                 (ido-completing-read ido-occur--prompt
                                      (ido-occur--lines-as-list (current-buffer)
-                                                               (line-number-at-pos)))))
+                                                               (line-number-at-pos))
+                                     nil
+                                     nil
+                                     query)))
          (line-length (length line))
 
          (new-column (if (<= line-length initial-column)
@@ -122,8 +126,9 @@ This fuction makes the most of the work."
     (move-to-column new-column)))
 
 ;;;###autoload
-(defun ido-occur ()
-  "Yet another `occur' with `ido'."
+(defun ido-occur (&optional query)
+  "Yet another `occur' with `ido'.
+When non-nil, QUERY is the initial search pattern."
 
   (interactive)
 
@@ -131,17 +136,17 @@ This fuction makes the most of the work."
   (when (fboundp 'ido-clever-match-disable) (ido-clever-match-disable))
 
   (cond ((bound-and-true-p ido-vertical-mode)
-         (ido-occur--run))
+         (ido-occur--run query))
 
         ((bound-and-true-p ido-grid-mode)
          (let ((ido-grid-mode-max-columns 1)
                (ido-grid-mode-max-rows 8)
                (ido-grid-mode-prefix-scrolls t))
-           (ido-occur--run)))
+           (ido-occur--run query)))
 
         (t
          (let ((ido-decorations ido-occur--decorations))
-           (ido-occur--run))))
+           (ido-occur--run query))))
 
   (when (fboundp 'ido-clever-match-enable) (ido-clever-match-enable)))
 
