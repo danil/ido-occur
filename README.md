@@ -70,3 +70,11 @@ Another use case would be to open `ido-occur` from `isearch`:
 [helm-swoop]: https://github.com/ShingoFukuyama/helm-swoop
 [swiper]: https://github.com/abo-abo/swiper
 [dash]: https://github.com/magnars/dash.el
+
+## Contributing
+
+See the `CONTRIBUTING.md` file.
+
+## License
+
+See the `COPYING` file.
