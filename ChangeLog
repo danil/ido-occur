@@ -1,3 +1,11 @@
+2016-05-27  Danil Kutkevich  <danil@kutkevich.org>
+
+        * ido-occur.el (ido-occur, ido-occur--run): Add ability to provide
+        initial input. Thanks to sebasar.
+
+        * README.md (unrelated_change): Adds about to open `ido-occur`
+        at point and from `isearch`. Thanks to sebasar.
+
 2016-01-14  Danil Kutkevich  <danil@kutkevich.org>
 
         * ido-occur.el (ido-occur): fix candidates sort order.
