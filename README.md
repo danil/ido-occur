@@ -2,6 +2,8 @@
 
 # Ido occur
 
+`ido-occur` deprecated, use [Swiper](https://github.com/abo-abo/swiper)
+
 Yet another [occur][] with [ido][]
 
 [ido]: https://www.emacswiki.org/emacs/InteractivelyDoThings
